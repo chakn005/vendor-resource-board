@@ -13,8 +13,8 @@ Leadership-facing vendor roster with live org-wide sync from uploaded spreadshee
 
 | Audience | URL |
 |----------|-----|
-| **Leadership / management** | `https://YOUR_USERNAME.github.io/vendor-resource-board/` |
-| **Publishers** (upload sheet) | `https://YOUR_USERNAME.github.io/vendor-resource-board/?publish=1` |
+| **Leadership / management** | https://chakn005.github.io/vendor-resource-board/ |
+| **Publishers** (upload sheet) | https://chakn005.github.io/vendor-resource-board/?publish=1 |
 
 ## Setup
 
@@ -35,7 +35,7 @@ git init
 git add .
 git commit -m "Initial vendor resource board"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/vendor-resource-board.git
+git remote add origin https://github.com/chakn005/vendor-resource-board.git
 git push -u origin main
 ```
 
