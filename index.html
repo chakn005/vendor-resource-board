@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Resource Board 2026</title>
+  <base href="./" />
+  <link rel="stylesheet" href="vendor-board.css?v=1" />
+</head>
+<body class="vendor-board-page">
+  <div class="vb-shell">
+    <header class="vb-topbar">
+      <div>
+        <h1>Vendor Resource Board</h1>
+        <p>Leadership &amp; management · KPIs, filters, analytics · live org-wide sync</p>
+        <p class="vb-share-url" id="vb-share-hint" hidden>
+          Share this URL with leadership:
+          <code id="vb-share-url"></code>
+        </p>
+      </div>
+    </header>
+    <div id="vendor-board-root" aria-live="polite">
+      <p style="color: var(--color-text-secondary); padding: 24px 0;">Loading board…</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.26.9/babel.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.8/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" crossorigin="anonymous"></script>
+
+  <script src="supabase-config.js?v=1"></script>
+  <script src="shared-state.js?v=1"></script>
+  <script src="vendor-sheet-sync.js?v=1"></script>
+  <script src="vendor-data.js?v=1"></script>
+  <script type="text/babel" data-presets="react" src="vendor-board.jsx?v=1"></script>
+  <script>
+    (function () {
+      var el = document.getElementById("vb-share-url");
+      var hint = document.getElementById("vb-share-hint");
+      if (!el || !hint) return;
+      var url = window.location.origin + window.location.pathname;
+      if (!/\?publish=1/.test(window.location.search)) {
+        el.textContent = url;
+        hint.hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>
