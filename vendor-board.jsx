@@ -12,23 +12,6 @@ function cleanRows(rows) {
   });
 }
 
-function SyncBadge({ status }) {
-  const map = {
-    loading: { label: "Connecting…", color: "#854F0B", bg: "#FAEEDA" },
-    live: { label: "Live · org-wide", color: "#0F6E56", bg: "#E1F5EE" },
-    "live-editor": { label: "Live · you can publish", color: "#185FA5", bg: "#E6F1FB" },
-    local: { label: "Local only (configure Supabase)", color: "#888780", bg: "#F1EFE8" },
-    error: { label: "Sync error", color: "#993C1D", bg: "#FAECE7" }
-  };
-  const s = map[status] || map.local;
-  return (
-    <span style={{
-      display: "inline-block", padding: "3px 10px", borderRadius: 999,
-      fontSize: 11, fontWeight: 500, color: s.color, background: s.bg
-    }}>{s.label}</span>
-  );
-}
-
 const ALLIANCE_COLORS = { CP: "#185FA5", BO: "#0F6E56", ES: "#854F0B" };
 const ALLIANCE_BG = { CP: "#E6F1FB", BO: "#E1F5EE", ES: "#FAEEDA" };
 const TZ_COLORS = { EST: "#533AB7", IST: "#993C1D", PST: "#0F6E56" };
@@ -479,53 +462,35 @@ function VendorBoard() {
     <div style={{ fontFamily: "var(--font-sans)", position: "relative" }}>
       <h2 className="sr-only">2026 Vendor Resource Board — leadership roster with KPIs, filters, and analytics</h2>
 
-      {/* Header — leadership (default) vs publisher (?publish=1) */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16, flexWrap: "wrap", gap: 10 }}>
-        <div>
-          <div style={{ fontSize: 18, fontWeight: 500 }}>Vendor Resource Board 2026</div>
-          <div style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 4 }}>
-            {showPublisherTools ? "Publisher mode · changes sync for the organization" : "Leadership & management · read-only"}
-          </div>
-          <div style={{ fontSize: 12, color: "var(--color-text-secondary)", marginTop: 4 }}>
-            {lastUpdated ? `Last updated: ${new Date(lastUpdated).toLocaleString()}` : "Awaiting first publish"}
-            {" · "}{data.length} resources
-          </div>
-          <div style={{ marginTop: 8 }}><SyncBadge status={syncStatus} /></div>
-        </div>
-        {showPublisherTools ? (
-          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <button
-              type="button"
-              onClick={() => {
-                shared()?.promptForEditKey?.();
-                setShowPublisherTools(wantsPublishUi() || !!shared()?.canPublish?.());
-              }}
-              style={{
-                padding: "6px 12px", borderRadius: "var(--border-radius-md)",
-                border: "0.5px solid var(--color-border-secondary)", fontSize: 12,
-                background: "var(--color-background-primary)", cursor: "pointer"
-              }}
-            >
-              Publisher key
-            </button>
-            <label style={{
-              display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
+      {showPublisherTools && (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
+          <button
+            type="button"
+            onClick={() => {
+              shared()?.promptForEditKey?.();
+              setShowPublisherTools(wantsPublishUi() || !!shared()?.canPublish?.());
+            }}
+            style={{
               padding: "6px 12px", borderRadius: "var(--border-radius-md)",
-              border: "0.5px solid var(--color-border-secondary)",
-              fontSize: 12, color: "var(--color-text-primary)",
-              background: "var(--color-background-primary)"
-            }}>
-              ↑ Upload .xlsx / .csv
-              <input type="file" accept=".xlsx,.xls,.csv" onChange={handleFileUpload} style={{ display: "none" }} />
-            </label>
-            {uploadMsg && <span style={{ fontSize: 11, color: uploadMsg.startsWith("✓") ? "#0F6E56" : "#E24B4A" }}>{uploadMsg}</span>}
-          </div>
-        ) : (
-          <a href="?publish=1" style={{ fontSize: 12, color: "#185fa5", textDecoration: "none", padding: "6px 0" }}>
-            Publisher tools →
-          </a>
-        )}
-      </div>
+              border: "0.5px solid var(--color-border-secondary)", fontSize: 12,
+              background: "var(--color-background-primary)", cursor: "pointer"
+            }}
+          >
+            Publisher key
+          </button>
+          <label style={{
+            display: "flex", alignItems: "center", gap: 6, cursor: "pointer",
+            padding: "6px 12px", borderRadius: "var(--border-radius-md)",
+            border: "0.5px solid var(--color-border-secondary)",
+            fontSize: 12, color: "var(--color-text-primary)",
+            background: "var(--color-background-primary)"
+          }}>
+            ↑ Upload .xlsx / .csv
+            <input type="file" accept=".xlsx,.xls,.csv" onChange={handleFileUpload} style={{ display: "none" }} />
+          </label>
+          {uploadMsg && <span style={{ fontSize: 11, color: uploadMsg.startsWith("✓") ? "#0F6E56" : "#E24B4A" }}>{uploadMsg}</span>}
+        </div>
+      )}
 
       {showPublisherTools && (
         <div style={{
