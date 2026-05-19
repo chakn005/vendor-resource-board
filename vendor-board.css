@@ -1,72 +1,160 @@
-/* Vendor Resource Board — executive theme */
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap");
+/* Vendor Resource Board — Disney blue-soft theme (matches E2E Integration Console) */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
 
 :root {
-  --font-sans: "DM Sans", system-ui, sans-serif;
-  --font-display: "Fraunces", Georgia, serif;
+  --disney-blue: #0a2a66;
+  --disney-blue-soft: #e8f0fa;
+  --disney-blue-mid: #1f5bb5;
+  --disney-blue-accent: #1f80e0;
+  --disney-blue-bg: linear-gradient(
+    180deg,
+    #e8f0fa 0%,
+    #d6e6f8 30%,
+    #f0f5fc 70%,
+    #ffffff 100%
+  );
 
-  --color-background-primary: #faf9f6;
-  --color-background-secondary: #f1efe8;
-  --color-border-secondary: rgba(26, 26, 24, 0.12);
-  --color-border-tertiary: rgba(26, 26, 24, 0.08);
-  --color-text-primary: #1a1a18;
-  --color-text-secondary: #5c5a52;
-  --color-text-danger: #c41e1a;
+  --font-sans: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-display: "Roboto", system-ui, sans-serif;
+
+  --color-background-primary: rgba(255, 255, 255, 0.92);
+  --color-background-secondary: rgba(232, 240, 250, 0.88);
+  --color-border-secondary: rgba(10, 42, 102, 0.14);
+  --color-border-tertiary: rgba(10, 42, 102, 0.08);
+  --color-text-primary: #0a2a66;
+  --color-text-secondary: #3b5278;
+  --color-text-danger: #dc2626;
 
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
+
+  --shadow: 0 2px 10px rgba(10, 42, 102, 0.06);
+  --shadow-strong: 0 8px 24px rgba(10, 42, 102, 0.1);
 }
 
 * { box-sizing: border-box; }
 
-body.vendor-board-page {
+html,
+body {
+  height: 100%;
   margin: 0;
+}
+
+body.vendor-board-page {
   min-height: 100vh;
   font-family: var(--font-sans);
   color: var(--color-text-primary);
-  background:
-    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(24, 95, 165, 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(15, 110, 86, 0.06), transparent),
-    linear-gradient(180deg, #faf9f6 0%, #f5f3ed 40%, #eeede8 100%);
+  background: var(--disney-blue-bg);
+  background-attachment: fixed;
+  position: relative;
 }
 
-.vb-shell {
+/* Atmospheric overlay — same as E2E console */
+body.vendor-board-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(232, 240, 250, 0.55) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.65) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(10, 42, 102, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.vb-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    180deg,
+    #e8f0fa 0%,
+    #e0edfa 25%,
+    #f5f9fe 60%,
+    #ffffff 100%
+  );
+}
+
+.vb-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(232, 240, 250, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border-secondary);
+  box-shadow: var(--shadow);
+}
+
+.vb-header::after {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--disney-blue),
+    var(--disney-blue-accent),
+    #3b82f6
+  );
+}
+
+.vb-header-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 24px 20px 48px;
-}
-
-.vb-topbar {
+  padding: 16px 20px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--color-border-tertiary);
+  flex-wrap: wrap;
 }
 
-.vb-topbar h1 {
+.vb-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vb-brand-icon {
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.vb-brand-text h1 {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--disney-blue);
+  letter-spacing: -0.01em;
 }
 
-.vb-topbar p {
+.vb-brand-text .vb-subtitle {
   margin: 4px 0 0;
   font-size: 0.8125rem;
+  font-weight: 400;
   color: var(--color-text-secondary);
 }
 
-.vb-topbar a {
-  font-size: 0.8125rem;
-  color: #185fa5;
-  text-decoration: none;
+.vb-shell {
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
 }
 
-.vb-topbar a:hover { text-decoration: underline; }
+/* Board content sits on a soft card */
+#vendor-board-root {
+  background: var(--color-background-primary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-strong);
+  padding: 20px 20px 28px;
+  backdrop-filter: blur(6px);
+}
+
+#vendor-board-root > p:first-child {
+  color: var(--color-text-secondary) !important;
+}
 
 .vb-share-url {
   margin: 8px 0 0;
@@ -79,8 +167,10 @@ body.vendor-board-page {
   margin-top: 4px;
   padding: 4px 8px;
   background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-tertiary);
   border-radius: 6px;
   font-size: 0.7rem;
+  color: var(--disney-blue-mid);
   word-break: break-all;
 }
 
@@ -96,6 +186,19 @@ body.vendor-board-page {
 }
 
 @media (max-width: 720px) {
-  .vb-shell { padding: 16px 12px 32px; }
-  .vb-topbar { flex-direction: column; align-items: flex-start; }
+  .vb-header-inner,
+  .vb-shell {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .vb-brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #vendor-board-root {
+    padding: 14px 12px 20px;
+  }
 }

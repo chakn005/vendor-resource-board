@@ -5,23 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vendor Resource Board 2026</title>
   <base href="./" />
-  <link rel="stylesheet" href="vendor-board.css?v=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="vendor-board.css?v=2" />
 </head>
 <body class="vendor-board-page">
-  <div class="vb-shell">
-    <header class="vb-topbar">
-      <div>
-        <h1>Vendor Resource Board</h1>
-        <p>Leadership &amp; management · KPIs, filters, analytics · live org-wide sync</p>
-        <p class="vb-share-url" id="vb-share-hint" hidden>
-          Share this URL with leadership:
-          <code id="vb-share-url"></code>
-        </p>
+  <div class="vb-app">
+    <header class="vb-header" role="banner">
+      <div class="vb-header-inner">
+        <div class="vb-brand">
+          <div class="vb-brand-icon" aria-hidden="true">
+            <svg width="40" height="32" viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Disney Mickey Placeholder">
+              <circle cx="32" cy="28" r="14" fill="#0A2A66"/>
+              <circle cx="18" cy="14" r="10" fill="#0A2A66"/>
+              <circle cx="46" cy="14" r="10" fill="#0A2A66"/>
+            </svg>
+          </div>
+          <div class="vb-brand-text">
+            <h1>Vendor Resource Board 2026</h1>
+            <p class="vb-subtitle">Leadership &amp; management · KPIs, filters, analytics · live org-wide sync</p>
+            <p class="vb-share-url" id="vb-share-hint" hidden>
+              Share this URL with leadership:
+              <code id="vb-share-url"></code>
+            </p>
+          </div>
+        </div>
       </div>
     </header>
-    <div id="vendor-board-root" aria-live="polite">
-      <p style="color: var(--color-text-secondary); padding: 24px 0;">Loading board…</p>
-    </div>
+
+    <main class="vb-shell">
+      <div id="vendor-board-root" aria-live="polite">
+        <p style="padding: 24px 0;">Loading board…</p>
+      </div>
+    </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
